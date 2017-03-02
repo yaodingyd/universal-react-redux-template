@@ -1,10 +1,10 @@
 import React from 'react'
-import './style.css'
+import style from './style.css'
 
 function Hello () {
   return (
-    <div className='hello'>
-      This is a demo app to dsadsatest css module.and some other stuff
+    <div className={style.hello}>
+      finally it's working and server is working too
     </div>
   )
 }
