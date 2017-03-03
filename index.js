@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import Hello from './src/client/demo'
+import App from './src/client'
 
 function render (Component) {
   ReactDOM.render(
@@ -12,11 +12,11 @@ function render (Component) {
   )
 }
 
-render(Hello)
+render(App)
 
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./src/client/demo', () => {
-    render(Hello)
+  module.hot.accept('./src/client', () => {
+    render(App)
   })
 }

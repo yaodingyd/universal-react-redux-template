@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt": "^1.0.2",
     "express": "^4.14.1",
+    "history": "^4.5.1",
     "mongodb": "^2.2.24",
     "mongoose": "^4.8.5",
     "passport": "^0.3.2",
@@ -19,7 +20,11 @@
     "passport-local": "^1.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "react-router": "^3.0.2",
     "redux": "^3.6.0",
+    "redux-logger": "^2.8.2",
+    "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^2.0.2"
   },
   "devDependencies": {
@@ -39,8 +44,6 @@
     "standard": "^9.0.0",
     "standard-loader": "^5.0.0",
     "style-loader": "^0.13.2",
-    "stylefmt": "^5.1.2",
-    "stylefmt-loader": "^1.2.1",
     "stylelint": "^7.9.0",
     "stylelint-config-standard": "^16.0.0",
     "webpack": "^2.2.1",
