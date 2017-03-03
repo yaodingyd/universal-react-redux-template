@@ -4,13 +4,15 @@ import { Route, IndexRoute } from 'react-router'
 import AuthedApp from '../apps/authedApp'
 import UnauthedApp from '../apps/unauthedApp'
 
+import Hello from '../components'
+
 const routes = (
   <Route>
     <Route path='/' component={UnauthedApp}>
-      <IndexRoute />
+      <IndexRoute component={Hello} />
     </Route>
     <Route path='/dashboard' component={AuthedApp}>
-      <IndexRoute />
+      <IndexRoute component={Hello} />
     </Route>
   </Route>
 )

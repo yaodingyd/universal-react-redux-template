@@ -1,10 +1,10 @@
 import React from 'react'
 
-function AuthedApp () {
+function AuthedApp ({children}) {
   return (
     <div>
       <h1> Authed App </h1>
-      {this.props.children}
+      {children}
     </div>
   )
 }
