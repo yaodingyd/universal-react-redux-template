@@ -48,7 +48,7 @@
     "precss": "^1.4.0",
     "react-hot-loader": "next",
     "standard": "^9.0.0",
-    "standard-loader": "^5.0.0",
+    "standard-loader": "^6.0.0",
     "style-loader": "^0.13.2",
     "stylelint": "^7.9.0",
     "stylelint-config-standard": "^16.0.0",

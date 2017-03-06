@@ -35,7 +35,7 @@ module.exports = {
     rules: [
       {
         test: /\.js?$/,
-        use: 'standard-loader',
+        loader: 'standard-loader',
         exclude: /node_module/,
         enforce: 'pre',
         options: {
@@ -49,7 +49,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader?modules', 'postcss-loader' ]
+        loader: [ 'style-loader', 'css-loader?modules', 'postcss-loader' ]
       }
     ]
   }

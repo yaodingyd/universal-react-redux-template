@@ -1,9 +1,11 @@
 import React from 'react'
+import AuthedHeader from '../components/header/AuthedHeader'
+
 
 function AuthedApp ({children}) {
   return (
     <div>
-      <h1> Authed App </h1>
+      <AuthedHeader />
       {children}
     </div>
   )

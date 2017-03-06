@@ -1,32 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import { getParameterByName } from '../../utilities'
 import { Button } from 'react-bootstrap'
 
 import validator from 'validator'
-import style from './style.css'
+import style from '../login/style.css'
 
-class Login extends Component {
+class Signup extends Component {
   constructor () {
     super()
     this.state = {
       email: '',
       emailError: '',
       password: '',
-      passwordError: ''
-    }
-  }
-
-  componentDidMount = () => {
-    if (typeof getParameterByName('id_token') === 'string') {
-      let idToken = getParameterByName('id_token')
-      let username = getParameterByName('username')
-      let id = getParameterByName('id')
-      this.props.fbLogin({
-        idToken,
-        username,
-        id
-      })
+      passwordError: '',
+      passwordMatch: '',
+      passwordMatchError: ''
     }
   }
 
@@ -52,19 +40,29 @@ class Login extends Component {
     }
   }
 
-  handleLogin = () => {
+  handlePasswordMatch = (e) => {
+    let value = e.target.value.trim()
+    this.setState({ passwordMatch: value })
+    if (this.state.password !== value) {
+      this.setState({ passwordMatchError: `Your passwords do not match` })
+    } else {
+      this.setState({ passwordMatchError: `` })
+    }
+  }
+
+  handleSignup = () => {
     // const creds = { email: this.state.email.value, password: this.state.password.value }
     // this.props.onLoginClick(creds)
   }
 
   render () {
     const { errorMessage } = this.props
-    const { emailError, passwordError } = this.state
+    const { emailError, passwordError, passwordMatchError } = this.state
 
     return (
       <div className={style.auth}>
         <form>
-          <h1 className={style.heading}>Log in</h1>
+          <h1 className={style.heading}>Sign Up</h1>
           <label className={style.group}>
             <span>Email</span>
             <input type='text' className={style.input} onChange={this.handleEmail} />
@@ -79,16 +77,21 @@ class Login extends Component {
               <p className={style.error}>{passwordError}</p>
             }
           </label>
-          <Button block bsStyle='primary' bsSize='large' onClick={this.handleLogin}>Log In</Button>
+          <label className={style.group}>
+            <span>Confirm Password</span>
+            <input type='password' className={style.input} onBlur={this.handlePasswordMatch} />
+            {passwordMatchError &&
+              <p className={style.error}>{passwordMatchError}</p>
+            }
+          </label>
+          <Button block bsStyle='primary' bsSize='large' onClick={this.handleSignup}>Sign Up</Button>
           {errorMessage &&
             <p className={style.error}>{errorMessage}</p>
           }
         </form>
         <div className={style.link}>
-          <a href='/auth/facebook'>Log in via Facebook</a>
-          <div><Link to={`/dashboard`}>Dashboard</Link></div>
           <p>
-            Do not have an account? <Link to={`/signup`}>Sign up now.</Link>
+            Already have an account? <Link to={`/login`}>Log in now.</Link>
           </p>
         </div>
       </div>
@@ -117,4 +120,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
 */
-export default Login
+export default Signup

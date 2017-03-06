@@ -4,7 +4,7 @@ import UnauthedHeader from '../components/header/UnauthedHeader'
 function UnauthedApp ({children}) {
   return (
     <div>
-      <UnauthedHeader />>
+      <UnauthedHeader />
       {children}
     </div>
   )

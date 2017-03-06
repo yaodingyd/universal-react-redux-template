@@ -16,7 +16,7 @@
 
 .group {
   display: block;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 }
 
 .input {
@@ -25,7 +25,7 @@
   border: 1px solid #b3b3b3;
   border-radius: 2px;
   display: block;
-  appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   max-width: 500px;
   color: #000;
@@ -44,4 +44,5 @@
 
 .error {
   color: red;
+  position: absolute;
 }
