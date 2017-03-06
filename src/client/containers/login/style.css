@@ -1,0 +1,47 @@
+.auth {
+  padding-top: 100px;
+  padding-bottom: 50px;
+  width: 300px;
+  margin: 0 auto -150px;
+  min-height: 100vh;
+}
+
+.heading {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.group {
+  display: block;
+  padding-bottom: 1rem;
+}
+
+.input {
+  box-sizing: border-box;
+  font-size: 1rem;
+  border: 1px solid #b3b3b3;
+  border-radius: 2px;
+  display: block;
+  appearance: none;
+  width: 100%;
+  max-width: 500px;
+  color: #000;
+  line-height: 18px;
+  padding: 10px 11px;
+  height: 44px;
+}
+
+.button {
+  width: 100%;
+}
+
+.link {
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+}

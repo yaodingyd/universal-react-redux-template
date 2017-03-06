@@ -37,7 +37,10 @@ module.exports = {
         test: /\.js?$/,
         use: 'standard-loader',
         exclude: /node_module/,
-        enforce: 'pre'
+        enforce: 'pre',
+        options: {
+          parser: 'babel-eslint'
+        }
       },
       {
         test: /\.js?$/,
@@ -47,7 +50,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader?modules', 'postcss-loader' ]
-      },
+      }
     ]
   }
 }

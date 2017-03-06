@@ -1,13 +1,13 @@
 import { browserHistory } from 'react-router'
 
-if (typeof window === "undefined" || window === null) {
+if (typeof window === 'undefined' || window === null) {
   var localStorage = {
     getItem: () => {},
     setItem: () => {}
-  };
+  }
   var history = {}
 } else {
-  var localStorage = window.localStorage;
+  var localStorage = window.localStorage
 }
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -25,7 +25,6 @@ export const FB_LOGIN_FAILUER = 'FB_LOGIN_FAILURE'
 
 const LOGIN_URL = '/login'
 const SIGNUP_URL = '/signup'
-
 
 const requestLogin = (creds) => ({
   type: LOGIN_REQUEST,
@@ -53,7 +52,7 @@ const loginError = (message) => ({
 export const loginUser = (creds) => {
   let config = {
     method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `email=${creds.email}&password=${creds.password}`
   }
 
@@ -62,18 +61,18 @@ export const loginUser = (creds) => {
     return fetch(LOGIN_URL, config)
       .then(response =>
         response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) =>  {
-        if (!response.ok) {
-          dispatch(loginError(user.message))
-          return Promise.reject(user)
-        } else {
-          localStorage.setItem('id_token', user.id_token)
-          localStorage.setItem('username', user.username)
-          localStorage.setItem('userId', user.id)
-          dispatch(receiveLogin(user))
-          browserHistory.push(`/browse`)
-        }
-      }).catch(err => console.log("Error: ", err))
+            ).then(({ user, response }) => {
+              if (!response.ok) {
+                dispatch(loginError(user.message))
+                return Promise.reject(user)
+              } else {
+                localStorage.setItem('id_token', user.id_token)
+                localStorage.setItem('username', user.username)
+                localStorage.setItem('userId', user.id)
+                dispatch(receiveLogin(user))
+                browserHistory.push(`/browse`)
+              }
+            }).catch(err => console.log('Error: ', err))
   }
 }
 
@@ -122,7 +121,7 @@ const signupError = (message) => ({
 export const signupUser = (creds) => {
   let config = {
     method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `email=${creds.email}&password=${creds.password}`
   }
 
@@ -131,18 +130,18 @@ export const signupUser = (creds) => {
     return fetch(SIGNUP_URL, config)
       .then(response =>
         response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) =>  {
-        if (!response.ok) {
-          dispatch(signupError(user.message))
-          return Promise.reject(user)
-        } else {
-          localStorage.setItem('id_token', user.id_token)
-          localStorage.setItem('username', user.username)
-          localStorage.setItem('userId', user.id)
-          dispatch(receiveSignup(user))
-          browserHistory.push(`/browse`)
-        }
-      }).catch(err => console.log("Error: ", err))
+            ).then(({ user, response }) => {
+              if (!response.ok) {
+                dispatch(signupError(user.message))
+                return Promise.reject(user)
+              } else {
+                localStorage.setItem('id_token', user.id_token)
+                localStorage.setItem('username', user.username)
+                localStorage.setItem('userId', user.id)
+                dispatch(receiveSignup(user))
+                browserHistory.push(`/browse`)
+              }
+            }).catch(err => console.log('Error: ', err))
   }
 }
 
@@ -179,6 +178,3 @@ export const FBLoginUser = (user) => {
     browserHistory.push(`/browse`)
   }
 }
-
-
-
