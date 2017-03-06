@@ -1,9 +1,10 @@
 import React from 'react'
+import UnauthedHeader from '../components/header/UnauthedHeader'
 
 function UnauthedApp ({children}) {
   return (
     <div>
-      <h1> !!!unAuthed App!!! </h1>
+      <UnauthedHeader />>
       {children}
     </div>
   )

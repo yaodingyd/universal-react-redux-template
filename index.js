@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import App from './src/client'
 
+delete AppContainer.prototype.unstable_handleError
+
 function render (Component) {
   ReactDOM.render(
     <AppContainer>
