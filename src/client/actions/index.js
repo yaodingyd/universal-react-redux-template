@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router'
 import { localStorage } from '../utilities'
-import fetch from 'whatwg-fetch'
+import 'whatwg-fetch'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -13,7 +13,6 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 export const FB_LOGIN_REQUEST = 'FB_LOGIN_REQUEST'
 export const FB_LOGIN_SUCCESS = 'FB_LOGIN_SUCCESS'
-export const FB_LOGIN_FAILUER = 'FB_LOGIN_FAILURE'
 
 const LOGIN_URL = '/auth/login'
 const SIGNUP_URL = '/auth/signup'
@@ -91,29 +90,8 @@ export const logoutUser = () => (dispatch) => {
   browserHistory.push(`/`)
 }
 
-const requestSignup = (creds) => ({
-  type: SIGNUP_REQUEST,
-  isFetching: true,
-  isAuthenticated: false,
-  creds
-})
-
-const receiveSignup = (userData) => ({
-  type: SIGNUP_SUCCESS,
-  isFetching: false,
-  isAuthenticated: true,
-  userData
-})
-
-const signupError = (message) => ({
-  type: SIGNUP_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
-  message
-})
-
 export const signupUser = (creds) => {
-  authUser(creds, SIGNUP_URL)
+  return authUser(creds, SIGNUP_URL)
 }
 
 const requestFBLogin = () => ({
@@ -130,13 +108,6 @@ const receiveFBLogin = (user) => ({
   id_token: user.id_token,
   username: user.username,
   userId: user.id
-})
-
-const FBloginError = (message) => ({
-  type: FB_LOGIN_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
-  message
 })
 
 export const FBLoginUser = (user) => {

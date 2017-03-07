@@ -21,7 +21,7 @@ const signup = new Strategy({
     if (err) return done(err)
     if (user) return done(null, false, { message: 'This email is already registered.' })
 
-    newUser.save((err) => {
+    newUser.save((err, savedUser) => {
       if (err) return done(err)
       const payload = {
         sub: newUser._id
@@ -29,7 +29,7 @@ const signup = new Strategy({
       const token = jwt.sign(payload, SECRET)
       const data = {
         username: userData.email,
-        id: newUser['ops'][0]['_id'],
+        id: savedUser._doc._id,
         token: token
       }
       return done(null, data)

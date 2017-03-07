@@ -18,13 +18,13 @@ UserSchema.pre('save', function saveHook (next) {
   const user = this
   if (!user.isModified('password')) return next()
 
-  return bcrypt.genSalt((error, salt) => {
+  bcrypt.genSalt((error, salt) => {
     if (error) return next(error)
 
-    return bcrypt.hash(user.password, salt, (error, hash) => {
+    bcrypt.hash(user.password, salt, (error, hash) => {
       if (error) return next(error)
       user.password = hash
-      return next
+      return next()
     })
   })
 })

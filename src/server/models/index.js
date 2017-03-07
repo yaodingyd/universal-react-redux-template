@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+// plug in ES6 promise
+mongoose.Promise = global.Promise
 
 function dbConnect (url) {
   mongoose.connect(url)
@@ -8,7 +10,7 @@ function dbConnect (url) {
     process.exit(1)
   })
 
-  require('./user')
+  // require('./user')
 }
 
 module.exports = dbConnect

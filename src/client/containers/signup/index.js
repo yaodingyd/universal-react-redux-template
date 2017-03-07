@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { signupUser } from '../../actions'
 import { Link } from 'react-router'
 import { Button } from 'react-bootstrap'
 
@@ -51,8 +53,8 @@ class Signup extends Component {
   }
 
   handleSignup = () => {
-    // const creds = { email: this.state.email.value, password: this.state.password.value }
-    // this.props.onLoginClick(creds)
+    const creds = { email: this.state.email, password: this.state.password }
+    this.props.handleSignup(creds)
   }
 
   render () {
@@ -99,18 +101,14 @@ class Signup extends Component {
   }
 }
 
-/*
-Login.propTypes = {
-  onLoginClick: PropTypes.func.isRequired,
+Signup.propTypes = {
+  handleSignup: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoginClick: (creds) => {
-    dispatch(loginUser(creds))
-  },
-  fbLogin: (id_token, username) => {
-    dispatch(FBLoginUser(id_token, username))
+  handleSignup: (creds) => {
+    dispatch(signupUser(creds))
   }
 })
 
@@ -118,6 +116,4 @@ const mapStateToProps = (state) => ({
   errorMessage: state.auth.errorMessage
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
-*/
-export default Signup
+export default connect(mapStateToProps, mapDispatchToProps)(Signup)
