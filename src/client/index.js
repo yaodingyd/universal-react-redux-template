@@ -1,16 +1,24 @@
 import React from 'react'
-import { Provider } from 'react-redux'
-import { Router, browserHistory } from 'react-router'
+import ReactDOM from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
+import App from './apps'
 
-import routes from './routes'
-import store from './store'
+delete AppContainer.prototype.unstable_handleError
 
-function App () {
-  return (
-    <Provider store={store}>
-      <Router history={browserHistory} routes={routes} />
-    </Provider>
+function render (Component) {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('root')
   )
 }
 
-export default App
+render(App)
+
+// Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./apps', () => {
+    render(App)
+  })
+}

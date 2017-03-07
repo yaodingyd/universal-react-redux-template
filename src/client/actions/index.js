@@ -1,14 +1,6 @@
 import { browserHistory } from 'react-router'
-
-if (typeof window === 'undefined' || window === null) {
-  var localStorage = {
-    getItem: () => {},
-    setItem: () => {}
-  }
-  var history = {}
-} else {
-  var localStorage = window.localStorage
-}
+import { localStorage } from '../utilities'
+import fetch from 'whatwg-fetch'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -23,8 +15,35 @@ export const FB_LOGIN_REQUEST = 'FB_LOGIN_REQUEST'
 export const FB_LOGIN_SUCCESS = 'FB_LOGIN_SUCCESS'
 export const FB_LOGIN_FAILUER = 'FB_LOGIN_FAILURE'
 
-const LOGIN_URL = '/login'
-const SIGNUP_URL = '/signup'
+const LOGIN_URL = '/auth/login'
+const SIGNUP_URL = '/auth/signup'
+
+function authUser (creds, url) {
+  let config = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `email=${creds.email}&password=${creds.password}`
+  }
+
+  return dispatch => {
+    dispatch(requestLogin(creds))
+    return fetch(url, config)
+      .then(response =>
+        response.json().then(user => ({ user, response }))
+            ).then(({ user, response }) => {
+              if (!response.ok) {
+                dispatch(loginError(user.message))
+                return Promise.reject(user)
+              } else {
+                localStorage.setItem('token', user.token)
+                localStorage.setItem('name', user.username)
+                localStorage.setItem('id', user.id)
+                dispatch(receiveLogin(user))
+                browserHistory.push(`/dashboard`)
+              }
+            }).catch(err => console.log('Error: ', err))
+  }
+}
 
 const requestLogin = (creds) => ({
   type: LOGIN_REQUEST,
@@ -33,13 +52,11 @@ const requestLogin = (creds) => ({
   creds
 })
 
-const receiveLogin = (user) => ({
+const receiveLogin = (userData) => ({
   type: LOGIN_SUCCESS,
   isFetching: false,
   isAuthenticated: true,
-  id_token: user.id_token,
-  username: user.username,
-  userId: user.id
+  userData
 })
 
 const loginError = (message) => ({
@@ -50,30 +67,7 @@ const loginError = (message) => ({
 })
 
 export const loginUser = (creds) => {
-  let config = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `email=${creds.email}&password=${creds.password}`
-  }
-
-  return dispatch => {
-    dispatch(requestLogin(creds))
-    return fetch(LOGIN_URL, config)
-      .then(response =>
-        response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) => {
-              if (!response.ok) {
-                dispatch(loginError(user.message))
-                return Promise.reject(user)
-              } else {
-                localStorage.setItem('id_token', user.id_token)
-                localStorage.setItem('username', user.username)
-                localStorage.setItem('userId', user.id)
-                dispatch(receiveLogin(user))
-                browserHistory.push(`/browse`)
-              }
-            }).catch(err => console.log('Error: ', err))
-  }
+  return authUser(creds, LOGIN_URL)
 }
 
 const requestLogout = () => ({
@@ -90,9 +84,11 @@ const receiveLogout = () => ({
 
 export const logoutUser = () => (dispatch) => {
   dispatch(requestLogout())
-  localStorage.removeItem('id_token')
+  localStorage.removeItem('token')
+  localStorage.removeItem('name')
+  localStorage.removeItem('id')
   dispatch(receiveLogout())
-  location.href = '/'
+  browserHistory.push(`/`)
 }
 
 const requestSignup = (creds) => ({
@@ -102,13 +98,11 @@ const requestSignup = (creds) => ({
   creds
 })
 
-const receiveSignup = (user) => ({
+const receiveSignup = (userData) => ({
   type: SIGNUP_SUCCESS,
   isFetching: false,
   isAuthenticated: true,
-  id_token: user.id_token,
-  username: user.username,
-  userId: user.id
+  userData
 })
 
 const signupError = (message) => ({
@@ -119,30 +113,7 @@ const signupError = (message) => ({
 })
 
 export const signupUser = (creds) => {
-  let config = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `email=${creds.email}&password=${creds.password}`
-  }
-
-  return dispatch => {
-    dispatch(requestSignup(creds))
-    return fetch(SIGNUP_URL, config)
-      .then(response =>
-        response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) => {
-              if (!response.ok) {
-                dispatch(signupError(user.message))
-                return Promise.reject(user)
-              } else {
-                localStorage.setItem('id_token', user.id_token)
-                localStorage.setItem('username', user.username)
-                localStorage.setItem('userId', user.id)
-                dispatch(receiveSignup(user))
-                browserHistory.push(`/browse`)
-              }
-            }).catch(err => console.log('Error: ', err))
-  }
+  authUser(creds, SIGNUP_URL)
 }
 
 const requestFBLogin = () => ({

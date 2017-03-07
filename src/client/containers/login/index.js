@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { getParameterByName } from '../../utilities'
+import { loginUser, FBLoginUser } from '../../actions'
 import { Button } from 'react-bootstrap'
 
 import validator from 'validator'
@@ -53,8 +55,8 @@ class Login extends Component {
   }
 
   handleLogin = () => {
-    // const creds = { email: this.state.email.value, password: this.state.password.value }
-    // this.props.onLoginClick(creds)
+    const creds = { email: this.state.email, password: this.state.password }
+    this.props.handleLogin(creds)
   }
 
   render () {
@@ -96,18 +98,18 @@ class Login extends Component {
   }
 }
 
-/*
 Login.propTypes = {
-  onLoginClick: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
+  handleFBLogin: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoginClick: (creds) => {
+  handleLogin: (creds) => {
     dispatch(loginUser(creds))
   },
-  fbLogin: (id_token, username) => {
-    dispatch(FBLoginUser(id_token, username))
+  handleFBLogin: (token, username) => {
+    dispatch(FBLoginUser(token, username))
   }
 })
 
@@ -116,5 +118,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
-*/
-export default Login

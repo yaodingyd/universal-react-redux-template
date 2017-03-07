@@ -1,4 +1,4 @@
-export function getParameterByName (name, url) {
+function getParameterByName (name, url) {
   if (!url) {
     url = window.location.href
   }
@@ -12,3 +12,15 @@ export function getParameterByName (name, url) {
   if (!results[2]) return ''
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
+
+let localStorage
+if (typeof window === 'undefined' || window === null) {
+  localStorage = {
+    getItem: () => {},
+    setItem: () => {}
+  }
+} else {
+  localStorage = window.localStorage
+}
+
+export { getParameterByName, localStorage }

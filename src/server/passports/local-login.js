@@ -35,5 +35,4 @@ const login = new Strategy({
   })
 })
 
-export default login
-
+module.exports = login

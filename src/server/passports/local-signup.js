@@ -37,4 +37,4 @@ const signup = new Strategy({
   })
 })
 
-export default signup
+module.exports = signup
