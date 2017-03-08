@@ -5,13 +5,14 @@ import AuthedApp from '../apps/authedApp'
 import UnauthedApp from '../apps/unauthedApp'
 
 import Hello from '../components/hello'
+import Welcome from '../components/welcome'
 import Login from '../containers/login'
 import Signup from '../containers/signup'
 
 const routes = (
   <Route>
     <Route path='/' component={UnauthedApp}>
-      <IndexRoute component={Login} />
+      <IndexRoute component={Welcome} />
       <Route path='/login' component={Login} />
       <Route path='/signup' component={Signup} />
     </Route>
