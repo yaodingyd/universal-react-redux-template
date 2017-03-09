@@ -6,7 +6,7 @@ import style from './style.css'
 
 class AuthedHeader extends Component {
   render () {
-    const { handleSignout } = this.props
+    const { handleSignout, name, email } = this.props
 
     return (
       <Navbar inverse>
@@ -25,8 +25,8 @@ class AuthedHeader extends Component {
                 <Row>
                   <Col sm={4}>image</Col>
                   <Col sm={8}>
-                    <strong>user</strong>
-                    <p>some@email.com</p>
+                    <strong>{name}</strong>
+                    <p>{email}</p>
                   </Col>
                 </Row>
               </MenuItem>

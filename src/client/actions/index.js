@@ -120,3 +120,30 @@ export const FBLoginUser = (user) => {
     browserHistory.push(`/browse`)
   }
 }
+
+export const reloginUser = (token) => {
+  let config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `bearer ${token}`
+    }
+  }
+
+  return dispatch => {
+    return fetch('/auth/relogin', config)
+      .then(response => {
+        if (!response.ok) {
+          localStorage.clear()
+        } else {
+          const user = {
+            token: localStorage.getItem('token'),
+            username: localStorage.getItem('name'),
+            id: localStorage.getItem('id')
+          }
+          dispatch(receiveLogin(user))
+          browserHistory.push(`/dashboard`)
+        }
+      }).catch(err => console.log('Error: ', err))
+  }
+}
