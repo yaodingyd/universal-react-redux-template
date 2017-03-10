@@ -23,4 +23,14 @@ if (typeof window === 'undefined' || window === null) {
   localStorage = window.localStorage
 }
 
-export { getParameterByName, localStorage }
+let count = 0
+
+function resetId () {
+  count = 0
+}
+
+function generateId () {
+  return `element-id-${count}`
+}
+
+export { getParameterByName, localStorage, resetId, generateId }
