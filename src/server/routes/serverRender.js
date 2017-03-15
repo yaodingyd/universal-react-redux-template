@@ -1,6 +1,11 @@
 const renderToString = require('react-dom/server').renderToString
 const match = require('react-router').match
 const RouterContext = require('react-router').RouterContext
+const Provider = require('react-redux').Provider
+// const Router = require('react-router').Router
+// const browserHistory = require('react-router').browserHistory
+const createStore = require('redux').createStore
+const reducer = require('../../client/reducers')
 const router = require('express').Router()
 const routes = require('../../client/routes')
 
@@ -11,37 +16,31 @@ router.get('*', (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      res.status(200).send(renderToString(<RouterContext {...renderProps} />))
+      handleRender(req, res, renderProps)
     } else {
       res.status(404).send('Not found')
     }
   })
 })
 
-function handleRender(req, res) {
-  // Create a new Redux store instance
-  const store = createStore(counterApp)
-
-  // Render the component to a string
+function handleRender (req, res, renderProps) {
+  const store = createStore(reducer)
   const html = renderToString(
     <Provider store={store}>
-      <App />
+      <RouterContext {...renderProps} />
     </Provider>
   )
-
-  // Grab the initial state from our Redux store
   const preloadedState = store.getState()
-
-  // Send the rendered page back to the client
   res.send(renderFullPage(html, preloadedState))
 }
 
-function renderFullPage(html, preloadedState) {
+function renderFullPage (html, preloadedState) {
   return `
     <!doctype html>
     <html>
       <head>
         <title>Redux Universal Example</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       </head>
       <body>
         <div id="root">${html}</div>
@@ -50,9 +49,11 @@ function renderFullPage(html, preloadedState) {
           // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
         </script>
-        <script src="/static/bundle.js"></script>
+        <script src="http://localhost:8080/assets/bundle.js"></script>
       </body>
     </html>
     `
 }
+
+module.exports = router
 

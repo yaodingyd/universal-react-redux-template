@@ -26,7 +26,7 @@ function authUser (creds, url) {
 
   return dispatch => {
     dispatch(requestLogin(creds))
-    return fetch(url, config)
+    return window.fetch(url, config)
       .then(response =>
         response.json().then(user => ({ user, response }))
             ).then(({ user, response }) => {
@@ -131,7 +131,7 @@ export const reloginUser = (token) => {
   }
 
   return dispatch => {
-    return fetch('/auth/relogin', config)
+    return window.fetch('/auth/relogin', config)
       .then(response => {
         if (!response.ok) {
           localStorage.clear()

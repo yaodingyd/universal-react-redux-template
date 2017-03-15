@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const passport = require('passport')
 const dbConnect = require('./models')
 const authRouter = require('./routes/auth')
+const defaultRouter = require('./routes/serverRender')
 const signup = require('./passports/local-signup')
 const login = require('./passports/local-login')
 
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('combined'))
 app.use(passport.initialize())
 
+app.use(defaultRouter)
 app.use('/auth', authRouter)
 
 app.listen(3000, () => {
