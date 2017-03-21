@@ -7,15 +7,21 @@
     "url": "https://github.com/yaodingyd/authentication-demo-app.git",
     "type": "git"
   },
+  "scripts": {
+    "build:client": "webpack --config webpack.client.js",
+    "build:server": "webpack --config webpack.server.js "
+  },
   "author": "yding",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.28.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "express": "^4.14.1",
     "express-jwt": "^5.1.0",
     "history": "^4.5.1",
+    "json-loader": "^0.5.4",
     "jsonwebtoken": "^7.3.0",
     "mongodb": "^2.2.24",
     "mongoose": "^4.8.5",

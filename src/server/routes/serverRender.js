@@ -56,4 +56,3 @@ function renderFullPage (html, preloadedState) {
 }
 
 module.exports = router
-
