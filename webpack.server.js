@@ -2,16 +2,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const fs = require('fs')
-
-let nodeModules = []
-fs.readdirSync('node_modules')
-  .filter(function (x) {
-    return ['.bin'].indexOf(x) === -1
-  })
-  .forEach(function (mod) {
-    nodeModules[mod] = 'commonjs ' + mod
-  })
+const nodeExternals = require('webpack-node-externals')()
 
 module.exports = {
   entry: [
@@ -22,7 +13,7 @@ module.exports = {
     filename: 'server.js'
   },
   target: 'node',
-  externals: nodeModules,
+  externals: [nodeExternals],
   node: {
     console: false,
     global: true,
@@ -33,13 +24,13 @@ module.exports = {
     setImmediate: true
   },
   watch: false,
-  devtool: 'source-map',
+  // devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.js?$/,
         loader: 'standard-loader',
-        exclude: /node_module/,
+        exclude: /node_modules/,
         enforce: 'pre',
         options: {
           parser: 'babel-eslint'
@@ -51,13 +42,13 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.json?$/,
-        loader: 'json-loader'
+        test: /\.css$/,
+        loader: [ 'node-style-loader', 'css-loader?modules', 'postcss-loader' ]
       }
     ]
   },
   plugins: [
-    new webpack.IgnorePlugin(/\.(css|html)$/),
+    new webpack.IgnorePlugin(/\.(html)$/),
     new webpack.NoEmitOnErrorsPlugin()
   ]
 }
