@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Glyphicon, Badge, Row, Col } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { Navbar, Nav, NavDropdown, MenuItem, Glyphicon, Badge, Row, Col } from 'react-bootstrap'
+import { logoutUser } from '../../actions'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import style from './style.css'
 
@@ -35,7 +36,7 @@ class AuthedHeader extends Component {
               <MenuItem eventKey='1.3'>Message<Badge pullRight>42</Badge></MenuItem>
               <MenuItem eventKey='1.4'>Favourites<Glyphicon glyph='heart' className='pull-right' /></MenuItem>
               <MenuItem divider />
-              <MenuItem eventKey='1.5' onClick={this.handleSignout}>Sign Out<Glyphicon glyph='log-out' className='pull-right' /></MenuItem>
+              <MenuItem eventKey='1.5' onClick={handleSignout}>Sign Out<Glyphicon glyph='log-out' className='pull-right' /></MenuItem>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -44,4 +45,10 @@ class AuthedHeader extends Component {
   }
 }
 
-export default AuthedHeader
+const mapDispatchToProps = (dispatch) => ({
+  handleSignout: () => {
+    dispatch(logoutUser())
+  }
+})
+
+export default connect(null, mapDispatchToProps)(AuthedHeader)
