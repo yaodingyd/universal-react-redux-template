@@ -15,10 +15,7 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/assets/'
   },
-  resolve: {
-    extensions: ['', 'js', 'css']
-  },
-  watch: false,
+  watch: true,
   devServer: {
     inline: true,
     hot: true,
@@ -29,7 +26,7 @@ module.exports = {
       color: true
     }
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()

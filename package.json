@@ -8,14 +8,14 @@
     "type": "git"
   },
   "scripts": {
-    "build:client": "webpack --config webpack.client.js",
+    "build:client": "webpack-dev-server --config webpack.client.js",
     "build:server": "webpack --config webpack.server.js "
   },
   "author": "yding",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.28.0",
-    "bcrypt": "^1.0.2",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "express": "^4.14.1",

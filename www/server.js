@@ -665,7 +665,7 @@ passport.use('local-login', login);
 dbConnect(DB_URL);
 
 var app = express();
-app.use(express.static(path.join('./', 'www')));
+// app.use(express.static(path.join('./', 'www')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('combined'));
@@ -1843,8 +1843,8 @@ var routes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1_react_router__["Route"],
     { path: '/', component: __WEBPACK_IMPORTED_MODULE_3__apps_unauthedApp__["a" /* default */] },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["IndexRoute"], { component: __WEBPACK_IMPORTED_MODULE_5__containers_welcome__["a" /* default */] }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Route"], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_6__containers_login__["a" /* default */] }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Route"], { path: '/signup', component: __WEBPACK_IMPORTED_MODULE_7__containers_signup__["a" /* default */] })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Route"], { path: 'login', component: __WEBPACK_IMPORTED_MODULE_6__containers_login__["a" /* default */] }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Route"], { path: 'signup', component: __WEBPACK_IMPORTED_MODULE_7__containers_signup__["a" /* default */] })
   ),
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1_react_router__["Route"],
@@ -2094,15 +2094,16 @@ var _temp = function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var renderToString = __webpack_require__(50).renderToString;
+var React = __webpack_require__(0);
 var match = __webpack_require__(1).match;
 var RouterContext = __webpack_require__(1).RouterContext;
 var Provider = __webpack_require__(7).Provider;
 // const Router = require('react-router').Router
 // const browserHistory = require('react-router').browserHistory
 var createStore = __webpack_require__(17).createStore;
-var reducer = __webpack_require__(30);
+var reducer = __webpack_require__(30).default;
 var router = __webpack_require__(9).Router();
-var routes = __webpack_require__(31);
+var routes = __webpack_require__(31).default;
 
 router.get('*', function (req, res) {
   match({ routes: routes, location: req.url }, function (error, redirectLocation, renderProps) {
@@ -2151,7 +2152,11 @@ var _temp = function () {
 
   __REACT_HOT_LOADER__.register(createStore, 'createStore', '/Users/yding/projects/authentication-demo-app/src/server/routes/serverRender.js');
 
+  __REACT_HOT_LOADER__.register(reducer, 'reducer', '/Users/yding/projects/authentication-demo-app/src/server/routes/serverRender.js');
+
   __REACT_HOT_LOADER__.register(router, 'router', '/Users/yding/projects/authentication-demo-app/src/server/routes/serverRender.js');
+
+  __REACT_HOT_LOADER__.register(routes, 'routes', '/Users/yding/projects/authentication-demo-app/src/server/routes/serverRender.js');
 
   __REACT_HOT_LOADER__.register(handleRender, 'handleRender', '/Users/yding/projects/authentication-demo-app/src/server/routes/serverRender.js');
 
@@ -2364,7 +2369,7 @@ delete __webpack_require__.c[module.i];
 /* 45 */
 /***/ (function(module, exports) {
 
-module.exports = require("bcrypt");
+module.exports = require("bcryptjs");
 
 /***/ }),
 /* 46 */

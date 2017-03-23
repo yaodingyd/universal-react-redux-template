@@ -1,13 +1,14 @@
 const renderToString = require('react-dom/server').renderToString
+const React = require('react')
 const match = require('react-router').match
 const RouterContext = require('react-router').RouterContext
 const Provider = require('react-redux').Provider
 // const Router = require('react-router').Router
 // const browserHistory = require('react-router').browserHistory
 const createStore = require('redux').createStore
-const reducer = require('../../client/reducers')
+const reducer = require('../../client/reducers').default
 const router = require('express').Router()
-const routes = require('../../client/routes')
+const routes = require('../../client/routes').default
 
 router.get('*', (req, res) => {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {

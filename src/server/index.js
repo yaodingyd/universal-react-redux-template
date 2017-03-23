@@ -17,7 +17,7 @@ passport.use('local-login', login)
 dbConnect(DB_URL)
 
 const app = express()
-app.use(express.static(path.join('./', 'www')))
+// app.use(express.static(path.join('./', 'www')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('combined'))

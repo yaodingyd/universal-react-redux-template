@@ -13,8 +13,8 @@ const routes = (
   <Route>
     <Route path='/' component={UnauthedApp}>
       <IndexRoute component={Welcome} />
-      <Route path='/login' component={Login} />
-      <Route path='/signup' component={Signup} />
+      <Route path='login' component={Login} />
+      <Route path='signup' component={Signup} />
     </Route>
     <Route path='/dashboard' component={AuthedApp}>
       <IndexRoute component={Hello} />
