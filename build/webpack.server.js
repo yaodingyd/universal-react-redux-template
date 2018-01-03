@@ -9,7 +9,7 @@ module.exports = {
     './src/server/index.js'
   ],
   output: {
-    path: path.resolve(__dirname, 'www'),
+    path: path.resolve(__dirname, '..', 'www'),
     filename: 'server.js'
   },
   target: 'node',
