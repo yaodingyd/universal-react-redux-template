@@ -29,7 +29,8 @@ module.exports = {
     inline: true,
     hot: true,
     contentBase: './www',
-    stats: 'errors-only'
+    stats: 'errors-only',
+    historyApiFallback: true
   },
   devtool: 'source-map',
   plugins: [

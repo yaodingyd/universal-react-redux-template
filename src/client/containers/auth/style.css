@@ -1,3 +1,9 @@
+.container {
+  background-color: #96f2d7;
+  width: 100%;
+  min-height: 100vh;
+}
+
 .auth {
   padding-top: 100px;
   padding-bottom: 50px;

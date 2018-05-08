@@ -6,8 +6,7 @@ import history from './history'
 import store from './store'
 
 import Welcome from './containers/welcome'
-import Login from './containers/login'
-import Signup from './containers/signup'
+import Auth from './containers/auth'
 
 import './App.css?raw'
 
@@ -17,8 +16,8 @@ function App () {
       <Router history={history}>
         <Switch>
           <Route path='/' exact component={Welcome} />
-          <Route path='/login' component={Login} />
-          <Route path='/signup' component={Signup} />
+          <Route path='/login' component={Auth} />
+          <Route path='/signup' component={Auth} />
         </Switch>
       </Router>
     </Provider>
