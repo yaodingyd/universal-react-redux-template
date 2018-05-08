@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { getParameterByName } from '../../utilities'
 import { loginUser, FBLoginUser } from '../../actions'
-import { Button } from 'react-bootstrap'
 
 import validator from 'validator'
 import style from './style.css'
@@ -81,7 +81,7 @@ class Login extends Component {
               <p className={style.error}>{passwordError}</p>
             }
           </label>
-          <Button block bsStyle='primary' bsSize='large' onClick={this.handleLogin}>Log In</Button>
+          <button onClick={this.handleLogin} className="button">Log In</button>
           {errorMessage &&
             <p className={style.error}>{errorMessage}</p>
           }

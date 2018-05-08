@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Jumbotron, Button } from 'react-bootstrap'
-import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { reloginUser } from '../../actions'
 import Spinner from '../../components/spinner'
+import history from '../../history'
+import './style.css'
 
 class Welcome extends Component {
   componentDidMount () {
@@ -13,23 +14,27 @@ class Welcome extends Component {
     }
   }
 
-  handleLogin () {
-    browserHistory.push('/login')
-  }
-
   render () {
     const { isFetching } = this.props
 
     return (
-      <div className='container'>
-        {isFetching &&
-          <Spinner />}
-        <Jumbotron>
-          <h1>Node Authentication and Server-side Rendering</h1>
-          <p>This is a demo app for node authentication using passport.</p>
-          <p><Button bsStyle='success' onClick={this.handleLogin}>Log In</Button></p>
-        </Jumbotron>
-      </div>
+      <section className="hero is-fullheight" styleName="my-hero">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <div className="column is-6 is-offset-3">
+              <h1 className="title">
+                Universal React App
+              </h1>
+              <h2 className="subtitle" styleName="subtitle">
+                With Authentication and Server-side Rendering
+              </h2>
+              <div>
+                <Link to="/login" className="button is-primary is-large">Log In</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     )
   }
 }

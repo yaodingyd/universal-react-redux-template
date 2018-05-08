@@ -43,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: [ 'node-style-loader', 'css-loader?modules', 'postcss-loader' ]
+        loader: [ 'node-style-loader', 'css-loader?modules'/*, 'postcss-loader' */]
       }
     ]
   },

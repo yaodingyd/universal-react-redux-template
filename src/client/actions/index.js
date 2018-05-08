@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router'
+import browserHistory from '../history'
 import { localStorage } from '../utilities'
 import 'whatwg-fetch'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import App from './apps'
+import App from './App'
 
 delete AppContainer.prototype.unstable_handleError
 
@@ -18,7 +18,7 @@ render(App)
 
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./apps', () => {
+  module.hot.accept('./App', () => {
     render(App)
   })
 }

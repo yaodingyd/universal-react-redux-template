@@ -1,7 +1,7 @@
 import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
-import reducer from '../reducers'
+import reducer from './reducers'
 
 const loggerMiddleware = createLogger()
 
@@ -18,8 +18,8 @@ const store = createStore(
 )
 
 if (module.hot) {
-  module.hot.accept('../reducers', () => {
-    const nextRootReducer = require('../reducers')
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers')
     store.replaceReducer(nextRootReducer)
   })
 }

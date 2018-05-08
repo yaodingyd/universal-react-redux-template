@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { signupUser } from '../../actions'
-import { Link } from 'react-router'
-import { Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import isEmail from 'validator/lib/isEmail'
 
-import validator from 'validator'
 import style from '../login/style.css'
 
 class Signup extends Component {
@@ -22,33 +22,39 @@ class Signup extends Component {
 
   handleEmail = (e) => {
     let value = e.target.value.trim()
-    this.setState({ email: value })
-    if (!validator.isEmail(value)) {
-      this.setState({ emailError: `${value} is not a valid email` })
-    } else if (value === '') {
+    if (!value) {
       this.setState({ emailError: `Email is required` })
+    } else if (!isEmail(value)) {
+      this.setState({ emailError: `${value} is not a valid email` })
     } else {
-      this.setState({ emailError: '' })
+      this.setState({ 
+        emailError: null,
+        email: value 
+      })
     }
   }
 
   handlePassword = (e) => {
     let value = e.target.value.trim()
-    this.setState({ password: value })
     if (value.length < 4 && value.length > 60) {
       this.setState({ passwordError: `Your password must contain between 4 and 60 characters` })
     } else {
-      this.setState({ passwordError: `` })
+      this.setState({ 
+        passwordError: null,
+        password: value 
+      })
     }
   }
 
   handlePasswordMatch = (e) => {
     let value = e.target.value.trim()
-    this.setState({ passwordMatch: value })
     if (this.state.password !== value) {
       this.setState({ passwordMatchError: `Your passwords do not match` })
     } else {
-      this.setState({ passwordMatchError: `` })
+      this.setState({ 
+        passwordMatchError: null,
+        passwordMatch: value
+      })
     }
   }
 
@@ -62,7 +68,7 @@ class Signup extends Component {
     const { emailError, passwordError, passwordMatchError } = this.state
 
     return (
-      <div className={style.auth}>
+      <section className={style.auth}>
         <form>
           <h1 className={style.heading}>Sign Up</h1>
           <label className={style.group}>
@@ -86,7 +92,7 @@ class Signup extends Component {
               <p className={style.error}>{passwordMatchError}</p>
             }
           </label>
-          <Button block bsStyle='primary' bsSize='large' onClick={this.handleSignup}>Sign Up</Button>
+          <button onClick={this.handleSignup}>Sign Up</button>
           {errorMessage &&
             <p className={style.error}>{errorMessage}</p>
           }
@@ -96,7 +102,7 @@ class Signup extends Component {
             Already have an account? <Link to={`/login`}>Log in now.</Link>
           </p>
         </div>
-      </div>
+      </section>
     )
   }
 }

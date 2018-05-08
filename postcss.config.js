@@ -1,10 +1,10 @@
 module.exports = {
   plugins: [
-    require('postcss-smart-import')(),
+    require('postcss-import')(),
     require('precss')(),
     require('autoprefixer')(),
-    require('postcss-reporter')({
-      clearReportedMessages: true
-    })
+    // require('postcss-reporter')({
+    //   clearReportedMessages: true
+    // })
   ]
 }
