@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { reloginUser } from '../../actions'
-import Spinner from '../../components/spinner'
 import history from '../../history'
+import Header from '@/components/header'
 import './style.css'
 
 class Welcome extends Component {
@@ -19,6 +19,7 @@ class Welcome extends Component {
 
     return (
       <section className="hero is-fullheight" styleName="my-hero">
+        <Header />
         <div className="hero-body">
           <div className="container has-text-centered">
             <div className="column is-6 is-offset-3">

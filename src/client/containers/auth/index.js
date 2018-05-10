@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { signupUser } from '../../actions'
 import { Link } from 'react-router-dom'
 import isEmail from 'validator/lib/isEmail'
+import Header from '@/components/header'
 
 import './style.css'
 
@@ -86,6 +87,7 @@ class Auth extends Component {
 
     return (
       <div styleName="container">
+        <Header />
         <section styleName="auth">
           <form>
             <h1 styleName="heading" className="title is-2">{ signup ? 'Sign Up' : 'Log In'}</h1>
