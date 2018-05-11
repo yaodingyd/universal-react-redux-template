@@ -8,12 +8,13 @@ import store from './store'
 import Welcome from '@/containers/welcome'
 import Auth from '@/containers/auth'
 import Forum from '@/containers/forum'
+import Post from '@/containers/post'
 
 import Header from '@/components/header'
 
 import './App.css?raw'
 
-function UnroutedApp () {
+function App () {
   return (
     <Fragment>
       <Switch>
@@ -21,19 +22,21 @@ function UnroutedApp () {
         <Route path='/login' component={Auth} />
         <Route path='/signup' component={Auth} />
         <Route path='/main' component={Forum} />
+        <Route path='/post' component={Post} />
       </Switch>
     </Fragment>
   )
 }
 
-function App () {
+function BrowserApp () {
   return (
     <Provider store={store}>
       <Router history={history}>
-        <UnroutedApp />
+        <App />
       </Router>
     </Provider>
   )
 }
 
-export default App
+export default BrowserApp
+export { App, BrowserApp}

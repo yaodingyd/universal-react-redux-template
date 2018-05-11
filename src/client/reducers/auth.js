@@ -4,15 +4,15 @@ import { localStorage } from '../utilities'
 const auth = (state = {
   isFetching: false,
   isAuthenticated: !!localStorage.getItem('token'),
-  username: localStorage.getItem('username') ? localStorage.getItem('username') : '',
-  userId: localStorage.getItem('userId') ? localStorage.getItem('userId') : ''
+  name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
+  id: localStorage.getItem('id') ? localStorage.getItem('id') : '',
+  errorMessage: ''
 }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
-        user: action.creds
       })
     case FB_LOGIN_SUCCESS:
     case LOGIN_SUCCESS:
@@ -21,8 +21,8 @@ const auth = (state = {
         isFetching: false,
         isAuthenticated: true,
         errorMessage: '',
-        username: action.username,
-        userId: action.userId
+        name: action.user.name,
+        id: action.user.id
       })
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -33,7 +33,10 @@ const auth = (state = {
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
         isFetching: true,
-        isAuthenticated: false
+        isAuthenticated: false,
+        name: '',
+        id: '',
+        email: ''
       })
     default:
       return state

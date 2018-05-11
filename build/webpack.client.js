@@ -5,6 +5,8 @@ const webpack = require('webpack')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+process.env.NODE_ENV = 'development'
+
 module.exports = {
   entry: [
     'react-hot-loader/patch',
@@ -34,6 +36,10 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', 
+      DEBUG: false
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

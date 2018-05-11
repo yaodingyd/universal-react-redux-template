@@ -26,7 +26,8 @@ const login = new Strategy({
       }
       const token = jwt.sign(payload, SECRET)
       const data = {
-        username: userData.email,
+        name: user.name,
+        email: user.email,
         id: user._id,
         token: token
       }

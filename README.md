@@ -24,3 +24,10 @@
 ### TODOs
 
 1. `facebook` strategies
+
+
+
+### Run App
+
+1. `npm run dev:client` : client app runs on http://localhost:8080
+2. `npm start`: server listens on port:3000. Whole app runs on http://localhost:3000. 

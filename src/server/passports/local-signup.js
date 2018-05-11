@@ -28,7 +28,8 @@ const signup = new Strategy({
       }
       const token = jwt.sign(payload, SECRET)
       const data = {
-        username: userData.email,
+        name: userData.name,
+        email: userDate.email,
         id: savedUser._doc._id,
         token: token
       }

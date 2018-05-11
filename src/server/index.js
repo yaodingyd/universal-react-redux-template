@@ -1,11 +1,12 @@
 const express = require('express')
-// const path = require('path')
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
 const passport = require('passport')
 const dbConnect = require('./models')
+
+const postRouter = require('./routes/post')
 const authRouter = require('./routes/auth')
-const defaultRouter = require('./routes/serverRender')
+const router = require('./routes/serverRender')
+
 const signup = require('./passports/local-signup')
 const login = require('./passports/local-login')
 
@@ -17,15 +18,14 @@ passport.use('local-login', login)
 dbConnect(DB_URL)
 
 const app = express()
-// app.use(express.static(path.join('./', 'www')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(morgan('combined'))
 app.use(passport.initialize())
 
-app.use(defaultRouter)
+app.use(router)
 app.use('/auth', authRouter)
+app.use('/post', postRouter)
 
 app.listen(3000, () => {
-  console.log('Example app listening on port 3000!')
+  console.log('App listening on port 3000!')
 })

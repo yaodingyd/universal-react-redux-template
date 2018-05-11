@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Header () {
+function Header ({login, signup}) {
   return (
     <nav className="navbar is-light is-fixed-top">
         <div className="container">
@@ -20,22 +20,26 @@ function Header () {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="field is-grouped">
+                            { signup &&
                             <p className="control">
-                                <a className="button is-small">
+                                <Link className="button is-small" to="/signup">
                                   <span className="icon">
                                     <i className="fa fa-user-plus"></i>
                                   </span>
-                                  <span>Register</span>
-                                </a>
+                                  <span>Sign up</span>
+                                </Link>
                             </p>
+                            }
+                            { login &&
                             <p className="control">
-                              <a className="button is-small is-info is-outlined">
+                              <Link className="button is-small is-info is-outlined" to="/login">
                                 <span className="icon">
                                   <i className="fa fa-user"></i>
                                 </span>
-                                <span>Login</span>
-                              </a>
+                                <span>Log in</span>
+                              </Link>
                             </p>
+                            }
                         </div>
                     </div>
                 </div>

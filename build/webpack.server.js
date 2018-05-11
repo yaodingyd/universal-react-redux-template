@@ -13,29 +13,29 @@ module.exports = {
     filename: 'server.js'
   },
   target: 'node',
+  mode: 'development',
   externals: [nodeExternals],
-  node: {
-    console: false,
-    global: true,
-    process: true,
-    Buffer: true,
-    __filename: 'mock',
-    __dirname: 'mock',
-    setImmediate: true
+  resolve: {
+    extensions: ['.js', 'css'],
+    alias: {
+      'client': path.join(__dirname, '..', 'src/client'),
+      'server': path.join(__dirname, '..', 'src/server'),
+      '@': path.join(__dirname, '..', 'src/client')
+    }
   },
-  watch: false,
-  // devtool: 'source-map',
+  watch: true,
+  devtool: 'source-map',
   module: {
     rules: [
-      {
-        test: /\.js?$/,
-        loader: 'standard-loader',
-        exclude: /node_modules/,
-        enforce: 'pre',
-        options: {
-          parser: 'babel-eslint'
-        }
-      },
+      // {
+      //   test: /\.js?$/,
+      //   loader: 'standard-loader',
+      //   exclude: /node_modules/,
+      //   enforce: 'pre',
+      //   options: {
+      //     parser: 'babel-eslint'
+      //   }
+      // },
       {
         test: /\.js?$/,
         loader: 'babel-loader',

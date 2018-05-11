@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { signupUser } from '../../actions'
+import { signupUser, loginUser } from '@/actions'
 import { Link } from 'react-router-dom'
 import isEmail from 'validator/lib/isEmail'
 import Header from '@/components/header'
@@ -61,7 +61,7 @@ class Auth extends Component {
     }
   }
 
-  handleSignup = () => {
+  handleAuth = (signup) => {
     const { emailError,  passwordError, passwordMathError, email, password } = this.state
     if (emailError || passwordError || passwordError) {
       this.setState({
@@ -76,13 +76,27 @@ class Auth extends Component {
         errorMessage: ''
       })
       const creds = { email: this.state.email, password: this.state.password }
-      this.props.handleSignup(creds)
+      if (signup) {
+        this.props.handleSignup(creds)
+      } else {
+        this.props.handleLogin(creds)
+      }
     }
   }
 
+  cleanupError = () => {
+    this.setState({
+      errorMessage: '',
+      emailError: '',
+      passwordError: '',
+      passwordMatchError: ''
+    })
+  }
+
   render () {
-    const { emailError, passwordError, passwordMatchError, errorMessage } = this.state
+    const { emailError, passwordError, passwordMatchError } = this.state
     const { location } = this.props
+    const errorMessage = this.state.errorMessage || this.props.errorMessage
     const signup =  location.pathname === '/signup'
 
     return (
@@ -115,7 +129,7 @@ class Auth extends Component {
             </label>
             }
             <label styleName="group">
-              <button type="button" className="button is-middle is-primary is-fullwidth" onClick={this.handleSignup}>{ signup ? 'Sign Up' : 'Log In'}</button>
+              <button type="button" className="button is-middle is-primary is-fullwidth" onClick={this.handleAuth.bind(this, signup)}>{ signup ? 'Sign Up' : 'Log In'}</button>
               {errorMessage &&
                 <p styleName="error">{errorMessage}</p>
               }
@@ -124,12 +138,12 @@ class Auth extends Component {
 
           {signup ?
           <div styleName="link">
-              <Link to={`/login`} className="button is-middle is-link  is-fullwidth is-rounded">Already have an account? Log in.</Link>
+              <Link to={`/login`} onClick={this.cleanupError} className="button is-middle is-link  is-fullwidth is-rounded">Already have an account? Log in.</Link>
           </div>
           :
           <div styleName="link">
             <a href='/auth/facebook' className="button is-middle is-success is-fullwidth is-rounded">Log in via Facebook</a>
-            <Link to={`/signup`} className="button is-middle is-link  is-fullwidth is-rounded"  styleName="link">Do not have an account? Sign up now.</Link>
+            <Link to={`/signup`} onClick={this.cleanupError} className="button is-middle is-link  is-fullwidth is-rounded"  styleName="link">Do not have an account? Sign up now.</Link>
           </div>
           }
         </section>
@@ -140,12 +154,16 @@ class Auth extends Component {
 
 Auth.propTypes = {
   handleSignup: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 }
 
 const mapDispatchToProps = (dispatch) => ({
   handleSignup: (creds) => {
     dispatch(signupUser(creds))
+  },
+  handleLogin: (creds) => {
+    dispatch(loginUser(creds))
   }
 })
 

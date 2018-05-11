@@ -7,7 +7,7 @@ function dbConnect (url) {
 
   mongoose.connection.on('error', (err) => {
     console.log(`Mongoose connection error: ${err}`)
-    process.exit(1)
+    //process.exit(1)
   })
 
   // require('./user')
