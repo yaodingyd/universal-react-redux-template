@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import history from '@/history'
 
-import { logoutUser, postCreate } from '@/actions'
+import { logoutUser, postCreate, postGetAll, postSetCurrent } from '@/actions'
 
 import Tags from '@/components/tags'
 import PostEntry from '@/components/post-entry'
@@ -17,6 +19,10 @@ class Forum extends Component {
     this.state = {
       open: false
     }
+  }
+
+  componentDidMount () {
+    this.props.getAllPost()
   }
 
   openModal = () => {
@@ -35,11 +41,16 @@ class Forum extends Component {
     const post = Object.assign({}, postContent, {author: this.props.username})
     this.props.handleCreatePost(post)
     this.closeModal()
+    this.props.getAllPost()
+  }
+
+  setPost = post => {
+    this.props.postSetCurrent(post)
   }
 
   render () {
     const { open } = this.state
-    const { handleLogout, username } = this.props
+    const { handleLogout, username, posts } = this.props
 
     return (
       <Fragment >
@@ -52,12 +63,11 @@ class Forum extends Component {
             </div>
             <div className="column is-9">
               <div className="box content">
-                <PostEntry />
-                <PostEntry />
-                <PostEntry />
-                <PostEntry />
-                <PostEntry />
-                <PostEntry />
+                { posts.map(post => (
+                  <Link to={`/viewpost/${post._id}`} key={post._id} onClick={this.setPost.bind(this, post)}>
+                    <PostEntry title={post.title} body={post.body} author={post.author} />
+                  </Link>
+                )) }
               </div>
             </div>
           </div>
@@ -71,7 +81,8 @@ class Forum extends Component {
 Forum.propTypes = {
   handleCreatePost : PropTypes.func,
   handleLogout: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired
+  username: PropTypes.string.isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object)
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -80,11 +91,18 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleCreatePost: (post) => {
     dispatch(postCreate(post))
+  },
+  getAllPost: () => {
+    dispatch(postGetAll())
+  },
+  postSetCurrent : post => {
+    dispatch(postSetCurrent(post))
   }
 })
 
 const mapStateToProps = (state) => ({
-  username: state.auth.name
+  username: state.auth.name,
+  posts: state.posts.posts
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forum)

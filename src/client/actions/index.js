@@ -16,6 +16,9 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
 export const POST_CREATE_REQUEST = 'POST_CREATE_REQUEST'
 export const POST_CREATE_SUCCESS = 'POST_CREATE_SUCCESS'
+export const POST_GET_ALL_REQUEST = 'POST_GET_ALL_REQUEST'
+export const POST_GET_ALL_SUCCESS = 'POST_GET_ALL_SUCCESS'
+export const POST_SET_CURRENT = 'POST_SET_CURRENT'
 
 export const FB_LOGIN_REQUEST = 'FB_LOGIN_REQUEST'
 export const FB_LOGIN_SUCCESS = 'FB_LOGIN_SUCCESS'
@@ -168,6 +171,20 @@ const postCreateSuccess = () => ({
   type: POST_CREATE_SUCCESS,
 })
 
+const postGetAllRequest = () => ({
+  type: POST_GET_ALL_REQUEST,
+})
+
+const postGetAllSuccess = posts => ({
+  type: POST_GET_ALL_SUCCESS,
+  posts
+})
+
+export const postSetCurrent = post => ({
+  type: POST_SET_CURRENT,
+  post
+})
+
 export const postCreate = post => {
   let config = {
     method: 'POST',
@@ -187,5 +204,23 @@ export const postCreate = post => {
           dispatch(postCreateSuccess())
         }
       }).catch(err => console.log('Error: ', err))
+  }
+}
+
+export const postGetAll = () => {
+  let config = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  return dispatch => {
+    dispatch(postGetAllRequest())
+    return window.fetch('/post/all', config)
+      .then(response => 
+      response.json().then(posts => {
+        dispatch(postGetAllSuccess(posts))
+      }))
   }
 }

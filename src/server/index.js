@@ -22,9 +22,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(passport.initialize())
 
-app.use(router)
 app.use('/auth', authRouter)
 app.use('/post', postRouter)
+// this router has to be the last one for get request might be redirected to login
+app.use(router)
 
 app.listen(3000, () => {
   console.log('App listening on port 3000!')

@@ -9,6 +9,7 @@ import Welcome from '@/containers/welcome'
 import Auth from '@/containers/auth'
 import Forum from '@/containers/forum'
 import Post from '@/containers/post'
+import Protected from '@/containers/protected'
 
 import Header from '@/components/header'
 
@@ -21,8 +22,8 @@ function App () {
         <Route path='/' exact component={Welcome} />
         <Route path='/login' component={Auth} />
         <Route path='/signup' component={Auth} />
-        <Route path='/main' component={Forum} />
-        <Route path='/post' component={Post} />
+        <Protected path='/main' component={Forum} />
+        <Protected path='/viewpost' component={Post} />
       </Switch>
     </Fragment>
   )
